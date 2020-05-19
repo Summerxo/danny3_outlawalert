@@ -39,3 +39,13 @@ Config.ShowCopsMisbehave = true
 Config.WhitelistedCops = {
 	'police'
 }
+
+Config.Ammunations =
+{
+
+AmmunationCity = {coords = vector3(13.32, -1097.68, 29.83)},
+AmmunationCity2 = {coords = vector3(821.64, -2163.68, 29.66)},
+AmmunationHilfiger = {coords = vector3(-1118.51, 2714.32, -55.39)},
+AmmunationSandyBunker = {coords = vector3(895.92, -3171.85, -97.39)},
+
+}
