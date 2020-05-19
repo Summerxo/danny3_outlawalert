@@ -2,6 +2,7 @@ ESX = nil
 
 local timing, isPlayerWhitelisted = math.ceil(Config.Timer * 60000), false
 local streetName, playerGender
+local isPlayerInAmmunation = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -143,7 +144,7 @@ Citizen.CreateThread(function()
 				}, streetName, playerGender)
 			end
 			-- is shootin'
-		elseif IsPedShooting(playerPed) and not IsPedCurrentWeaponSilenced(playerPed) and Config.GunshotAlert then
+		elseif IsPedShooting(playerPed) and not IsPedCurrentWeaponSilenced(playerPed) and Config.GunshotAlert and not isPlayerInAmmunation then
 
 			Citizen.Wait(3000)
 
@@ -238,3 +239,26 @@ AddEventHandler('esx_outlawalert:combatInProgress', function(targetCoords)
 		end
 	end
 end)
+
+--Exclude Ammunations in City/Area in my server
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		local coords = GetEntityCoords(PlayerPedId())
+		if 
+		GetDistanceBetweenCoords(coords, Config.Ammunations.AmmunationHilfiger.coords, true) < 5 or
+		GetDistanceBetweenCoords(coords, Config.Ammunations.AmmunationCity2.coords, true) < 7 or 
+		GetDistanceBetweenCoords(coords, Config.Ammunations.AmmunationCity.coords, true) < 7 or
+		GetDistanceBetweenCoords(coords, Config.Ammunations.AmmunationSandyBunker.coords, true) < 7
+		then
+			isPlayerInAmmunation = true
+			print('you are in the beam')
+			Citizen.Wait(3000)
+		else 
+			isPlayerInAmmunation = false
+			
+		end
+	end
+end)
+
