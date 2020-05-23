@@ -145,8 +145,20 @@ Citizen.CreateThread(function()
 			end
 			-- is shootin'
 		elseif IsPedShooting(playerPed) and not IsPedCurrentWeaponSilenced(playerPed) and Config.GunshotAlert and not isPlayerInAmmunation then
+			
+				local thisweapon = GetSelectedPedWeapon(playerPed)
+				
+				if thisweapon == 911657153 
+				or thisweapon == 600439132
+				or thisweapon == 101631238
+				or thisweapon == 126349499
+				or thisweapon == 1233104067
+				or thisweapon == 1198879012
+				then
+				--does nothing put what you want here.
+				else
 
-			Citizen.Wait(3000)
+			Citizen.Wait(10000)
 
 			if (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
 				DecorSetInt(playerPed, 'isOutlaw', 2)
@@ -156,8 +168,8 @@ Citizen.CreateThread(function()
 					y = ESX.Math.Round(playerCoords.y, 1),
 					z = ESX.Math.Round(playerCoords.z, 1)
 				}, streetName, playerGender)
+				end
 			end
-
 		end
 	end
 end)
